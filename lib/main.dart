@@ -1,4 +1,9 @@
-import 'package:flutter/material.dart';
+
+## Autor
+- **Nome:** Pedro Henrique, Lucas Pereira e João Victor
+- **RA:** 2025103003, 2025117247 e 2025118184
+  
+  import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MeuAppPonto());
