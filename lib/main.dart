@@ -1,9 +1,9 @@
+// Integrantes do Grupo:
+// 1. Pedro Henrique - RA: 2025103003
+// 2.Lucas Pereira - RA: 2025117247
+// 3. Joao Victor - RA: 2025118184
 
-## Autor
-- **Nome:** Pedro Henrique, Lucas Pereira e João Victor
-- **RA:** 2025103003, 2025117247 e 2025118184
-  
-  import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MeuAppPonto());
@@ -27,10 +27,12 @@ class TelaBaterPonto extends StatefulWidget {
 }
 
 class _TelaBaterPontoState extends State<TelaBaterPonto> {
-  // Lista simples que guarda os textos dos pontos batidos
+  // Coloque aqui os seus dados
+  final String nomeAluno = 'Pedro Henrique';
+  final String raAluno = '0000000'; // <-- Substitua pelo seu RA
+
   List<String> listaDePontos = [];
 
-  // Nomes das batidas do dia na ordem
   List<String> tiposDePonto = [
     'Entrada',
     'Saída Almoço',
@@ -38,20 +40,15 @@ class _TelaBaterPontoState extends State<TelaBaterPonto> {
     'Saída Final',
   ];
 
-  // Função chamada quando aperta o botão
   void baterPonto() {
-    // Pega a data e hora atual do celular/PC
     DateTime agora = DateTime.now();
 
-    // Formata manualmente para ficar bonito (ex: 09:05)
     String hora = agora.hour.toString().padLeft(2, '0');
     String minuto = agora.minute.toString().padLeft(2, '0');
     String horarioFormatado = '$hora:$minuto';
 
-    // Descobre qual é o tipo da batida atual
     String tipoAtual = tiposDePonto[listaDePontos.length];
 
-    // Atualiza a tela adicionando o novo registro na lista
     setState(() {
       listaDePontos.add('$tipoAtual - $horarioFormatado');
     });
@@ -59,7 +56,6 @@ class _TelaBaterPontoState extends State<TelaBaterPonto> {
 
   @override
   Widget build(BuildContext context) {
-    // Verifica se já bateu os 4 pontos do dia
     bool diaFinalizado = listaDePontos.length >= 4;
 
     return Scaffold(
@@ -72,6 +68,19 @@ class _TelaBaterPontoState extends State<TelaBaterPonto> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
+            // Cartão de identificação com Nome e RA
+            Card(
+              color: Colors.blue.shade50,
+              child: ListTile(
+                leading: const Icon(Icons.person, color: Colors.blue, size: 32),
+                title: Text(
+                  nomeAluno,
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+                subtitle: Text('RA: $raAluno'),
+              ),
+            ),
+
             const SizedBox(height: 20),
 
             // Botão principal
@@ -79,7 +88,6 @@ class _TelaBaterPontoState extends State<TelaBaterPonto> {
               width: double.infinity,
               height: 60,
               child: ElevatedButton(
-                // Se já bateu 4 vezes, desativa o botão (null)
                 onPressed: diaFinalizado ? null : baterPonto,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
@@ -99,7 +107,6 @@ class _TelaBaterPontoState extends State<TelaBaterPonto> {
             ),
             const Divider(),
 
-            // Lista na tela mostrando os pontos batidos
             Expanded(
               child: ListView.builder(
                 itemCount: listaDePontos.length,
